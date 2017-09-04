@@ -1,8 +1,15 @@
 class PostsController < ApplicationController
   def index
-    @posts=[
-      "今日からProgateでRailsの勉強するよー！",
-      "投稿一覧ページ作成中！"
-    ]
+    @posts=Post.all.order(created_at: :desc)
+  end
+  def show
+    @post = Post.find_by(id: params[:id])
+  end
+  def new
+  end
+  def create
+    @post=Post.new(content: params[:content])
+    @post.save
+    redirect_to("/posts/index")
   end
 end
